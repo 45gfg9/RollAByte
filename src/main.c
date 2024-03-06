@@ -29,10 +29,10 @@
 
 extern const uint8_t rab_font[] U8X8_FONT_SECTION("rab_font");
 
-u8x8_t u8x8;
+u8g2_t u8g2;
 
 uint16_t adc_seedrand(void);
-void u8x8_display_number(u8x8_t *u8g2, uint8_t val);
+void u8g2_display_number(u8g2_t *u8g2, uint8_t val);
 uint8_t u8x8_gpio_and_delay(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr);
 
 int main() {
@@ -51,15 +51,15 @@ int main() {
   // SPI clock rate F_CPU/2
   SPSR = _BV(SPI2X);
 
-  u8x8_Setup(&u8x8, u8x8_d_ssd1306_72x40_er, u8x8_cad_001, u8x8_byte_avr_hw_spi, u8x8_gpio_and_delay);
-  u8x8_InitDisplay(&u8x8);
-  u8x8_ClearDisplay(&u8x8);
-  u8x8_SetPowerSave(&u8x8, 0);
-  u8x8_SetFont(&u8x8, rab_font);
+  u8g2_Setup_ssd1306_72x40_er_f(&u8g2, &u8g2_cb_r0, u8x8_byte_avr_hw_spi, u8x8_gpio_and_delay);
+  u8g2_InitDisplay(&u8g2);
+  u8g2_ClearDisplay(&u8g2);
+  u8g2_SetPowerSave(&u8g2, 0);
+  u8g2_SetFont(&u8g2, rab_font);
 
   uint8_t rnd = rand();
-  u8x8_ClearDisplay(&u8x8);
-  u8x8_display_number(&u8x8, rnd);
+  u8g2_display_number(&u8g2, rnd);
+  u8g2_SendBuffer(&u8g2);
 
   SPCR = 0; // disable SPI
 
@@ -95,8 +95,8 @@ uint16_t adc_seedrand(void) {
   return r;
 }
 
-void u8x8_display_number(u8x8_t *u8g2, uint8_t val) {
-  char hex[5] = "0x";
+void u8g2_display_number(u8g2_t *u8g2, uint8_t val) {
+  char hex[9] = "0x";
 
   hex[2] = val >> 4;
   if (hex[2] > 9)
@@ -112,7 +112,7 @@ void u8x8_display_number(u8x8_t *u8g2, uint8_t val) {
 
   hex[4] = 0;
 
-  u8x8_DrawString(u8g2, 0, 1, hex);
+  u8g2_DrawStr(u8g2, 4, 30, hex);
 }
 
 #define CS_DDR DDRB
