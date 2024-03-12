@@ -1,4 +1,5 @@
 #include <u8g2.h>
+// generated with: bdfconv -f 1 -b 2 -m '48-57,97-102,120' -n rab_font -o font.c spleen-16x32.bdf
 /*
   Fontname: -misc-spleen-medium-r-normal--32-320-72-72-C-160-ISO10646-1
   Copyright: Copyright (c) 2018-2023, Frederic Cambus

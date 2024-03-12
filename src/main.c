@@ -6,7 +6,7 @@
 
 #include <stdlib.h>
 #include <avr/io.h>
-#include <avr/power.h>
+#include <avr/interrupt.h>
 #include <avr/sleep.h>
 #include <util/delay.h>
 #include <u8x8_avr.h>
@@ -45,6 +45,14 @@ int main() {
 
   srand(adc_seedrand());
 
+  // enable pull-ups on unused pins
+  DDRB = 0;
+  PORTB = 0xff;
+  DDRC = 0;
+  PORTC = 0xff;
+
+  DDRD = 0xff;
+
   // shut down all peripherals except SPI
   PRR = (__AVR_HAVE_PRR & ~_BV(PRSPI));
 
@@ -60,21 +68,15 @@ int main() {
   uint8_t rnd = rand();
   u8g2_display_number(&u8g2, rnd);
   u8g2_SendBuffer(&u8g2);
-
-  SPCR = 0; // disable SPI
-
-  PRR = __AVR_HAVE_PRR; // shut down all peripherals
-
-  DDRD = 0xff;
   PORTD = rnd;
-  // enable pull-ups on unused pins
-  DDRB = 0;
-  PORTB = 0xff;
-  DDRC = 0;
-  PORTC = 0xff;
 
+  SPCR = 0;                  // disable SPI
+  PRR = __AVR_HAVE_PRR;      // shut down all peripherals
+  cli();                     // disable interrupts
   SMCR = _BV(SM1) | _BV(SE); // enable sleep mode (power down)
   while (1) {
+    MCUCR = _BV(BODS) | _BV(BODSE);
+    MCUCR = _BV(BODS); // disable brown-out detection
     sleep_cpu();
   }
 }
