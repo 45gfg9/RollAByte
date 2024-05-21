@@ -2,7 +2,7 @@
 
 The same [*Roll a Byte*](https://heap.45gfg9.net/rants/809bc23b9ca6/), right in your hands this time.
 
-This is a simple device to produce a random byte and show it on a 72x40 OLED display and 8 LEDs, based on the ATmega88PA and the amazing [U8g2](https://github.com/olikraus/u8g2) library.
+This is a simple device to produce a random byte and show it on a 72x40 OLED display and 8 LEDs, powered by an ATmega88PA and the amazing [U8g2](https://github.com/olikraus/u8g2) library.
 
 ## Build
 
@@ -37,3 +37,5 @@ The schematic, PCB layout and EasyEDA source are available in the `hardware` dir
 ## License
 
 This project is licensed under the WTFPL license. See the [LICENSE](LICENSE) file for details.
+
+The font used in the display is [fcambus/spleen](https://github.com/fcambus/spleen), which is licensed under the BSD 2-Clause license.
