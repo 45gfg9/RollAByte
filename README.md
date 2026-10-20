@@ -1,8 +1,8 @@
 # [RollAByte](https://heap.45gfg9.net/rab-ex)
 
-The same [*Roll a Byte*](https://heap.45gfg9.net/rants/809bc23b9ca6/), right in your hands this time.
+The same [*Roll a Byte*](https://heap.45gfg9.net/rab), right in your hands this time.
 
-This is a device that generates a random byte and shows it on a 72x40 OLED display and 8 LEDs, powered by a CH32V003 ([v3](src/ch32v/)) or an ATmega88PA ([v2](src/avr/)), and the amazing [U8g2](https://github.com/olikraus/u8g2) library.
+This is an open hardware project. A device generates a random byte and shows it on a 72x40 OLED display and 8 LEDs, powered by a CH32V003 ([v3](src/ch32v/)) or an ATmega88PA ([v2](src/avr/)), and the amazing [U8g2](https://github.com/olikraus/u8g2) library.
 
 ## Build
 
@@ -18,11 +18,11 @@ pio run -e v3
 
 The schematic, PCB layout and EasyEDA source are available in the `hardware` directory.
 
-![Schematic](hardware/RollAByte_v2_schematic.svg)
+![Schematic](hardware/RollAByte_v3_schematic.svg)
 
-![PCB front](hardware/RollAByte_v2_PCB_front.svg)
+![PCB front](hardware/RollAByte_v3_PCB_front.svg)
 
-![PCB back](hardware/RollAByte_v2_PCB_back.svg)
+![PCB back](hardware/RollAByte_v3_PCB_back.svg)
 
 ## License
 
